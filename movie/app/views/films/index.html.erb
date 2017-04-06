@@ -2,7 +2,7 @@
   <div class="film">
     <%= link_to("Add a film", new_film_path, class: "btn btn-primary pull-right")%>
   </div>
-  <table class="table table-hover">
+  <table class="table table-striped table-responsive table-inverse">
     <thead>
       <tr>
         <td>#</td>
@@ -13,7 +13,7 @@
     <tbody>
       <% @films.each do |film| %>
       <tr>
-        <td>#</td>
+        <th scope="row">#</th>
         <td><%= link_to(film.title, film_path(film)) %></td>
         <td><%= film.description %></td>
         <td>
