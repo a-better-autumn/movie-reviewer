@@ -1,4 +1,7 @@
 class FilmsController < ApplicationController
+
+  before_action :authenticate_user!, only: [:new, :create]
+
   def index
     @films = Film.all
   end
@@ -17,6 +20,7 @@ class FilmsController < ApplicationController
 
   def create
     @film = Film.new(film_params)
+    @film.user = current_user
     if @film.save
       redirect_to films_path
     else
