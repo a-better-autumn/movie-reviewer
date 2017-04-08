@@ -1,6 +1,7 @@
 class FilmsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destoy, :update]
+  before_action :find_film_and_check_perission, only: [:edit, :update, :destroy]
 
   def index
     @films = Film.all
@@ -15,7 +16,6 @@ class FilmsController < ApplicationController
   end
 
   def edit
-    @film = Film.find(params[:id])
   end
 
   def create
@@ -29,7 +29,6 @@ class FilmsController < ApplicationController
   end
 
   def update
-    @film = Film.find(params[:id])
     if @film.update(film_params)
       redirect_to films_path, notice: "Update Success"
     else
@@ -38,12 +37,20 @@ class FilmsController < ApplicationController
   end
 
   def destroy
-    @film = Film.find(params[:id])
     @film.destroy
     redirect_to films_path, alert: "Film Deleted"
   end
 
   private
+
+  def find_film_and_check_perission
+    @film = Film.find(params[:id])
+
+    if current_user != @film.user
+      redirect_to root_path, alert: "You have no permission"
+    end
+  end
+
   def film_params
     params.require(:film).permit(:title, :description)
   end
