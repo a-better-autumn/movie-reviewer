@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :films
+  resources :films do
+    resources :reviews
+  end
   root 'films#index'
 end
