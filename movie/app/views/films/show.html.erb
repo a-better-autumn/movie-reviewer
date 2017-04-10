@@ -3,8 +3,27 @@
     <% if current_user && current_user == @film.user %>
     <%= link_to("Edit", edit_film_path(@film), class: "btn btn-primary pull-right")%>
     <% end %>
-    <%= link_to("Write a Review", edit_film_path(@film), class: "btn btn-default pull-right") %>
+    <%= link_to("Write a Review", new_film_review_path(@film), class: "btn btn-default pull-right") %>
   </div>
   <h2><%= @film.title%></h2>
   <p><%= @film.description %></p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Review</th>
+        <th>Creator</th>
+        <th>Update Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.content %></td>
+          <td><%= review.user.email %></td>
+          <td><%= review.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
