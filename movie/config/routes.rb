@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users
 
   resources :films do
@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       post :quit
     end
 
-    resources :reviews
+    resources :reviews do
+      collection do
+        get :hot
+      end
+    end
   end
 
   root 'films#index'
