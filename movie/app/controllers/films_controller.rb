@@ -1,6 +1,6 @@
 class FilmsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:new, :create, :edit, :destoy, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destoy, :update, :join, :quit]
   before_action :find_film_and_check_perission, only: [:edit, :update, :destroy]
 
   def index
@@ -40,6 +40,32 @@ class FilmsController < ApplicationController
   def destroy
     @film.destroy
     redirect_to films_path, alert: "Film Deleted"
+  end
+
+  def join
+    @film = Film.find(params[:id])
+
+    if !current_user.is_member_of?(@film)
+      current_user.join!(@film)
+      flash[:notice] = "Successfully marked"
+    else
+      flash[:warning] = "You have already marked it."
+    end
+
+    redirect_to film_path(@film)
+  end
+
+  def quit
+    @film = Film.find(params[:id])
+
+    if current_user.is_member_of?(@film)
+      current_user.quit!(@film)
+      flash[:alert] = "Successfully unmarked"
+    else
+      flash[:warning] = "Unmark failed"
+    end
+
+    redirect_to film_path(@film)
   end
 
   private

@@ -4,11 +4,13 @@
     <span class="pull-right">
       <% if current_user && current_user.is_member_of?(@film)%>
         <label class="label label-success"> Movie Marked </label>
+              <%= link_to("Unmark It", quit_film_path(@film), :method => :post, class: "btn btn-default") %>
       <% else %>
         <label class="label label-warning"> Movie Unmarked </label>
+              <%= link_to("Mark It",   join_film_path(@film), :method => :post, class: "btn btn-default") %>
       <% end %>
     </span>
-    
+
     <%= link_to("Write a Review", new_film_review_path(@film), class: "btn btn-default pull-right") %>
 
     <% if current_user && current_user == @film.user %>
