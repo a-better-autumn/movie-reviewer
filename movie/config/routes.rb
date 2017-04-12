@@ -8,11 +8,12 @@ Rails.application.routes.draw do
       post :quit
     end
 
-    resources :reviews      
+    resources :reviews
   end
 
   namespace :account do
     resources :films
+    resources :reviews
   end
 
   root 'films#index'

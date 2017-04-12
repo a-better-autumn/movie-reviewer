@@ -1,0 +1,26 @@
+<div class="col-md-12">
+  <h2 class="text-center">My Review</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Movie</th>
+        <th>Last Update</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @reviews.each do |review| %>
+      <tr>
+        <th><%= review.content %></th>
+        <th><%= review.film.title %></th>
+        <th><%= review.updated_at %></th>
+        <th><%= link_to("Edit", edit_film_review_path(review.film, review), class: "btn btn-default btn-xs")%></th>
+        <th><%= link_to("Delete", film_review_path(review.film, review), :method => :delete, data: { confirm:"Are you sure?"}, class: "btn btn-default btn-xs")%></th>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
