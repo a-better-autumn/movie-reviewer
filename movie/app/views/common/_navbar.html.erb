@@ -19,6 +19,8 @@
                         <b class="caret"></b>
                       </a>
                         <ul class="dropdown-menu">
+                          <li><%= link_to("My Movies", account_films_path) %></li>
+                          <li class="divider"></li>
                           <li><%= link_to(content_tag(:i, "Sign out", class: 'fa fa-sign-out'), destroy_user_session_path, method: :delete )%></li>
                         </ul>
                     </li>
